@@ -1,4 +1,4 @@
-.header__navBar > .header__menuList {
+.header > .header__headerNav > .menu {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,15 +8,21 @@
   background: #999;
 }
 
-.listItem {
+.menu__listItem {
   list-style-type: none;
 }
 
-.listLink {
+.menu__listLink {
   color: #fff;
   font-weight: 700;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
+}
+
+.active {
+  color: #890101;
+  font-weight: 700;
+  text-decoration: none;
 }

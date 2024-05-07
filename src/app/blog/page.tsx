@@ -1,46 +1,32 @@
+'use client';
+
+import { PostSearch } from '@/components/PostSearch/PostSearch';
+import Posts from '@/components/Posts/Posts';
+import { getAllPosts } from '@/services/getPosts';
 import styles from '@/styles/page.module.scss';
-import { Metadata } from 'next';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-export const metadata: Metadata = {
-  title: 'Next | Blog',
-};
-
-type Post = {
+export type Post = {
   id: number;
   title: string;
   body: string;
 };
 
-const getPosts = async () => {
-  try {
-    const response = await fetch(
-      'https://jsonplaceholder.typicode.com/posts?_limit=20',
-      {
-        next: { revalidate: 60 },
-      }
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
-  }
-};
+export default function Blog() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-export default async function Blog() {
-  const posts = await getPosts();
+  useEffect(() => {
+    getAllPosts()
+      .then(setPosts)
+      .finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <div>
       <h1 className={styles.title}>Blog</h1>
-      <ol>
-        {posts.map((post: Post) => (
-          <li style={{ fontSize: 16, listStyle: 'disc' }} key={post.id}>
-            <Link href={`/blog/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ol>
+      <PostSearch onSearch={setPosts} />
+      {isLoading ? <h3>Loading...</h3> : <Posts posts={posts} />}
     </div>
   );
 }

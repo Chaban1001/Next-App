@@ -2,43 +2,40 @@
 
 import Link from 'next/link';
 import styles from '@/styles/header.module.scss';
-import { NavigationPaths } from '@/enums/nav';
-import { FC } from 'react';
 import { usePathname } from 'next/navigation';
 
-export const NavBar: FC = () => {
+export type NavLink = {
+  label: string;
+  href: string;
+};
+
+export const navLinks: NavLink[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+];
+
+type NavLinks = {
+  navLinks: NavLink[];
+};
+
+export const NavBar = ({ navLinks }: NavLinks) => {
   const pathname = usePathname();
   return (
-    <nav className={styles.header__navBar}>
-      <ul className={styles.header__menuList}>
-        <li className={styles.listItem}>
-          <Link
-            style={{ color: pathname === NavigationPaths.HOME ? '#111' : '' }}
-            className={styles.listLink}
-            href={NavigationPaths.HOME}
-          >
-            Home
-          </Link>
-        </li>
-        <li className={styles.listItem}>
-          <Link
-            style={{ color: pathname === NavigationPaths.ABOUT ? '#111' : '' }}
-            className={styles.listLink}
-            href={NavigationPaths.ABOUT}
-          >
-            About
-          </Link>
-        </li>
-        <li className={styles.listItem}>
-          <Link
-            style={{ color: pathname === NavigationPaths.BLOG ? '#111' : '' }}
-            className={styles.listLink}
-            href={NavigationPaths.BLOG}
-          >
-            Blog
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      {navLinks.map((link) => {
+        const isActive = pathname === link.href;
+        return (
+          <li key={link.href} className={styles.menu__listItem}>
+            <Link
+              className={isActive ? styles.active : styles.menu__listLink}
+              href={link.href}
+            >
+              {link.label}
+            </Link>
+          </li>
+        );
+      })}
+    </>
   );
 };
