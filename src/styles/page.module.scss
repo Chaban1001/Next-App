@@ -1,0 +1,26 @@
+.body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  font-weight: 700;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1 1 auto;
+  min-height: 100%;
+}
+
+.about__listItem {
+  list-style-type: none;
+}
+

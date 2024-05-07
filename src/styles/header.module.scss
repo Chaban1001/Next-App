@@ -1,0 +1,22 @@
+.header__navBar > .header__menuList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10em;
+  margin: 0;
+  padding: 20px;
+  background: #999;
+}
+
+.listItem {
+  list-style-type: none;
+}
+
+.listLink {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
