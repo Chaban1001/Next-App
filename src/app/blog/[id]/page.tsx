@@ -1,6 +1,5 @@
 import styles from '@/styles/page.module.scss';
 import { Metadata } from 'next';
-import { title } from 'process';
 
 type Props = {
   params: {
